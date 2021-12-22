@@ -1,6 +1,16 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @conversation %>
+<!--<div id="<%#= dom_id conversation %>">-->
+  <p>
+    <strong>Subject:</strong>
+    <%= @conversation.subject %>
+  </p>
+
+  <p>
+    <strong>Contact:</strong>
+    <%= link_to(@conversation.contact.name, @conversation.contact) %>
+  </p>
+<!--</div>-->
 
 <div>
   <%= link_to "Edit this conversation", edit_conversation_path(@conversation) %> |
