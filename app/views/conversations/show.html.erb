@@ -1,20 +1,23 @@
 <p style="color: green"><%= notice %></p>
 
-<!--<div id="<%#= dom_id conversation %>">-->
-  <p>
-    <strong>Subject:</strong>
-    <%= @conversation.subject %>
-  </p>
+<p>
+  <strong>Subject:</strong>
+  <%= @conversation.subject %>
+</p>
 
-  <p>
-    <strong>Contact:</strong>
-    <%= link_to(@conversation.contact.name, @conversation.contact) %>
-  </p>
-<!--</div>-->
+<p>
+  <strong>Contact:</strong>
+  <%= link_to(@conversation.contact.name, @conversation.contact) %>
+</p>
 
 <div>
   <%= link_to "Edit this conversation", edit_conversation_path(@conversation) %> |
   <%= link_to "Back to conversations", conversations_path %>
 
   <%= button_to "Destroy this conversation", @conversation, method: :delete %>
+</div>
+
+<%= turbo_stream_from @conversation %>
+<div id="posts">
+  <%= render @posts %>
 </div>

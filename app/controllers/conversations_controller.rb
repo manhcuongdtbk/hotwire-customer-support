@@ -7,7 +7,9 @@ class ConversationsController < ApplicationController
   end
 
   # GET /conversations/1 or /conversations/1.json
-  def show; end
+  def show
+    @posts = @conversation.posts.order(created_at: :desc)
+  end
 
   # GET /conversations/new
   def new
