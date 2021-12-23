@@ -2,31 +2,33 @@ class PostsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_conversation
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def create
     @post = @conversation.posts.build(post_params.merge(author: current_user))
 
     respond_to do |format|
       if @post.save
-        format.turbo_stream {
+        ReplyJob.perform_later(@post)
+
+        format.turbo_stream do
           render(turbo_stream: turbo_stream.replace(
             'form',
             partial: 'posts/form',
             locals: { conversation: @conversation, post: Post.new }
           ))
-        }
+        end
       else
-        format.turbo_stream {
+        format.turbo_stream do
           render(turbo_stream: turbo_stream.replace(
             'form',
             partial: 'posts/form',
             locals: { conversation: @conversation, post: @post }
           ))
-        }
+        end
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 

@@ -4,4 +4,8 @@ class Conversation < ApplicationRecord
   belongs_to :contact
 
   broadcasts_to ->(_conversation) { 'conversations' }, inserts_by: :prepend, target: 'conversations'
+
+  def authors
+    posts.includes(:author).map(&:author).uniq
+  end
 end

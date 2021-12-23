@@ -1,0 +1,5 @@
+<div>
+  <%= @author.name %> replied to <%= @conversation.subject %>
+</div>
+
+<%= link_to 'Read message', conversation_url(@conversation, anchor: dom_id(@post)) %>
