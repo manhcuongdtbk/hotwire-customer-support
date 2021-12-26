@@ -74,6 +74,7 @@ group :development do
   # gem "spring"
 
   gem 'brakeman'
+  gem 'bundler-audit'
 end
 
 group :test do
